@@ -22,8 +22,7 @@ class DateRange {
 
   /// Returns whether the date range contains the given [date] or not.
   bool contains(DateTime date) {
-    return (date.isAtSameMomentAs(start) || date.isAfter(start)) &&
-        (date.isAtSameMomentAs(end) || date.isBefore(end));
+    return (date.isAtSameMomentAs(start) || date.isAfter(start)) && (date.isAtSameMomentAs(end) || date.isBefore(end));
   }
 
   @override
@@ -32,12 +31,7 @@ class DateRange {
     // and whether both start and end dates are on the same day (comparison
     // is done attribute by attribute).
     if (other is DateRange) {
-      return start.year == other.start.year &&
-          start.month == other.start.month &&
-          start.day == other.start.day &&
-          end.year == other.end.year &&
-          end.month == other.end.month &&
-          end.day == other.end.day;
+      return start.year == other.start.year && start.month == other.start.month && start.day == other.start.day && end.year == other.end.year && end.month == other.end.month && end.day == other.end.day;
     } else {
       return false;
     }
@@ -143,12 +137,46 @@ class CalendarTheme {
       ),
       this.quickDateRangeBackgroundColor,
       this.monthTextStyle,
-      this.dayNameTextStyle =
-          const TextStyle(color: Colors.black45, fontSize: 10),
+      this.dayNameTextStyle = const TextStyle(color: Colors.black45, fontSize: 10),
       required this.radius,
       required this.tileSize,
       this.selectedQuickDateRangeColor,
       this.separatorColor});
+
+  CalendarTheme copyWith({
+    Color? selectedColor,
+    Color? inRangeColor,
+    TextStyle? inRangeTextStyle,
+    TextStyle? selectedTextStyle,
+    TextStyle? disabledTextStyle,
+    TextStyle? todayTextStyle,
+    TextStyle? defaultTextStyle,
+    double? radius,
+    double? tileSize,
+    TextStyle? monthTextStyle,
+    TextStyle? dayNameTextStyle,
+    TextStyle? quickDateRangeTextStyle,
+    Color? selectedQuickDateRangeColor,
+    Color? quickDateRangeBackgroundColor,
+    Color? separatorColor,
+  }) =>
+      CalendarTheme(
+        selectedColor: selectedColor ?? this.selectedColor,
+        inRangeColor: inRangeColor ?? this.inRangeColor,
+        inRangeTextStyle: inRangeTextStyle ?? this.inRangeTextStyle,
+        selectedTextStyle: selectedTextStyle ?? this.selectedTextStyle,
+        disabledTextStyle: disabledTextStyle ?? this.disabledTextStyle,
+        todayTextStyle: todayTextStyle ?? this.todayTextStyle,
+        defaultTextStyle: defaultTextStyle ?? this.defaultTextStyle,
+        radius: radius ?? this.radius,
+        tileSize: tileSize ?? this.tileSize,
+        monthTextStyle: monthTextStyle ?? this.monthTextStyle,
+        dayNameTextStyle: dayNameTextStyle ?? this.dayNameTextStyle,
+        quickDateRangeTextStyle: quickDateRangeTextStyle ?? this.quickDateRangeTextStyle,
+        selectedQuickDateRangeColor: selectedQuickDateRangeColor ?? this.selectedQuickDateRangeColor,
+        quickDateRangeBackgroundColor: quickDateRangeBackgroundColor ?? this.quickDateRangeBackgroundColor,
+        separatorColor: separatorColor ?? this.separatorColor,
+      );
 }
 
 /// A model that represents a quick selection dateRange in the quick selection widget.

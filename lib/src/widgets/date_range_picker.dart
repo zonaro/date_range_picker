@@ -54,10 +54,8 @@ Widget kDayTileBuilder(
     value: dayModel.date,
     onTap: dayModel.isSelectable ? onTap : null,
     radius: BorderRadius.horizontal(
-      left: Radius.circular(
-          dayModel.isEnd && dayModel.isInRange ? 0 : theme.radius),
-      right: Radius.circular(
-          dayModel.isStart && dayModel.isInRange ? 0 : theme.radius),
+      left: Radius.circular(dayModel.isEnd && dayModel.isInRange ? 0 : theme.radius),
+      right: Radius.circular(dayModel.isStart && dayModel.isInRange ? 0 : theme.radius),
     ),
     backgroundRadius: BorderRadius.horizontal(
       left: Radius.circular(dayModel.isStart ? theme.radius : 0),
@@ -73,12 +71,11 @@ class DayNamesRow extends StatelessWidget {
   /// * [key] - The [Key] for this widget.
   /// * [textStyle] - The style to apply to the day names text.
   /// * [weekDays] - The names of the days of the week to display. If null, defaults to the default week days.
-  DayNamesRow({
+  const DayNamesRow({
     Key? key,
     required this.textStyle,
-    List<String>? weekDays,
-  })  : weekDays = weekDays ?? defaultWeekDays(),
-        super(key: key);
+    required this.weekDays,
+  }) : super(key: key);
 
   final TextStyle textStyle;
   final List<String> weekDays;
@@ -207,9 +204,7 @@ class DateRangePickerWidgetState extends State<DateRangePickerWidget> {
 
   late final calendarController = CalendarWidgetController(
     controller: controller,
-    currentMonth: widget.initialDisplayedDate ??
-        widget.initialDateRange?.start ??
-        DateTime.now(),
+    currentMonth: widget.initialDisplayedDate ?? widget.initialDateRange?.start ?? DateTime.now(),
   );
 
   late final StreamSubscription subscription;
@@ -345,6 +340,7 @@ class EnrichedMonthWrapWidget extends StatelessWidget {
       child: Column(
         children: [
           DayNamesRow(
+            weekDays: defaultWeekDays(Localizations.localeOf(context)),
             textStyle: theme.dayNameTextStyle,
           ),
           const SizedBox(height: 16),

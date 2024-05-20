@@ -60,12 +60,7 @@ Future<DateRange?> showDateRangePickerDialogOnWidget({
   final Offset offset = renderBox.localToGlobal(Offset.zero);
 
   // Show the dateRange picker dialog and get the selected date range
-  final dateRange = showDateRangePickerDialog(
-      context: context ?? widgetContext,
-      footerBuilder: dialogFooterBuilder,
-      barrierColor: barrierColor,
-      builder: pickerBuilder,
-      offset: offset + delta);
+  final dateRange = showDateRangePickerDialog(context: context ?? widgetContext, footerBuilder: dialogFooterBuilder, barrierColor: barrierColor, builder: pickerBuilder, offset: offset + delta);
 
   return dateRange;
 }
@@ -148,12 +143,12 @@ class DateRangePickerDialogFooter extends StatelessWidget {
   const DateRangePickerDialogFooter({
     super.key,
     this.selectedDateRange,
-    this.cancelText = "Cancel",
-    this.confirmText = "Confirm",
+    this.cancelText,
+    this.confirmText,
   });
 
-  final String cancelText;
-  final String confirmText;
+  final String? cancelText;
+  final String? confirmText;
   final DateRange? selectedDateRange;
 
   @override
@@ -166,13 +161,13 @@ class DateRangePickerDialogFooter extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(cancelText),
+            child: Text(cancelText ?? MaterialLocalizations.of(context).cancelButtonLabel),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(selectedDateRange);
             },
-            child: Text(confirmText),
+            child: Text(confirmText ?? MaterialLocalizations.of(context).okButtonLabel),
           ),
         ],
       ),
